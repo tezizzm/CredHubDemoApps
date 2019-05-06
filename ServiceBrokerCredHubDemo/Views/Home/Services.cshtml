@@ -1,0 +1,19 @@
+﻿@model Steeltoe.Extensions.Configuration.CloudFoundry.CloudFoundryServicesOptions
+
+@{
+    ViewData["Title"] = "Services";
+}
+
+<h2>Services</h2>
+<h3>Configuration Data from VCAP_SERVICES</h3>
+
+@foreach (var service in Model.ServicesList)
+{
+    <h4>vcap:services:@(service.Label):label = @service.Label</h4>
+    <h4>vcap:services:@(service.Label):plan = @service.Plan</h4>
+    <h4>vcap:services:@(service.Label):name = @service.Name</h4>
+    <h4>vcap:services:@(service.Label):tags = @foreach (var tag in service.Tags ?? Enumerable.Empty<string>())
+    {@(tag + " ")}</h4>
+    <h4>vcap:services:@(service.Label):credentials =</h4>
+    <service-credentials credentials="@service.Credentials"></service-credentials>
+}
